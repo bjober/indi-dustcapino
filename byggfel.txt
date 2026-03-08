@@ -1,0 +1,45 @@
+bb@astro:~/indi-dustcapino/build$ cd ~/indi-dustcapino/build
+rm -rf *
+cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local
+make -j4
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/bb/indi-dustcapino/build
+[ 50%] Building CXX object CMakeFiles/indi_dustcapino.dir/dustcapino.cpp.o
+/home/bb/indi-dustcapino/dustcapino.cpp: In member function ‘virtual bool DustCapIno::ISNewNumber(const char*, const char*, double*, char**, int)’:
+/home/bb/indi-dustcapino/dustcapino.cpp:184:25: error: ‘isParked’ was not declared in this scope; did you mean ‘parked’?
+  184 |         bool parked   = isParked();
+      |                         ^~~~~~~~
+      |                         parked
+/home/bb/indi-dustcapino/dustcapino.cpp: In member function ‘virtual bool DustCapIno::SetLightBoxBrightness(uint16_t)’:
+/home/bb/indi-dustcapino/dustcapino.cpp:227:21: error: ‘isParked’ was not declared in this scope; did you mean ‘parked’?
+  227 |     bool parked   = isParked();
+      |                     ^~~~~~~~
+      |                     parked
+/home/bb/indi-dustcapino/dustcapino.cpp: In member function ‘virtual bool DustCapIno::EnableLightBox(bool)’:
+/home/bb/indi-dustcapino/dustcapino.cpp:254:21: error: ‘isParked’ was not declared in this scope; did you mean ‘parked’?
+  254 |     bool parked   = isParked();
+      |                     ^~~~~~~~
+      |                     parked
+/home/bb/indi-dustcapino/dustcapino.cpp: In member function ‘virtual void DustCapIno::TimerHit()’:
+/home/bb/indi-dustcapino/dustcapino.cpp:294:13: error: ‘SetParked’ was not declared in this scope
+  294 |             SetParked(false);
+      |             ^~~~~~~~~
+/home/bb/indi-dustcapino/dustcapino.cpp:302:13: error: ‘SetParked’ was not declared in this scope
+  302 |             SetParked(true);
+      |             ^~~~~~~~~
+make[2]: *** [CMakeFiles/indi_dustcapino.dir/build.make:76: CMakeFiles/indi_dustcapino.dir/dustcapino.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:83: CMakeFiles/indi_dustcapino.dir/all] Error 2
+make: *** [Makefile:136: all] Error 2

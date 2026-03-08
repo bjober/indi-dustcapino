@@ -1,0 +1,886 @@
+bb@astro:~/indi-dustcapino/build$ indiserver -vvv ./indi_dustcapino
+2026-02-28T17:05:46: startup: indiserver -vvv ./indi_dustcapino
+2026-02-28T17:05:46: Driver ./indi_dustcapino: pid=27000 rfd=6 wfd=6 efd=7
+2026-02-28T17:05:46: listening to port 7624 on fd 5
+2026-02-28T17:05:46: Local server: listening on local domain at: @/tmp/indiserver
+2026-02-28T17:05:46: Driver ./indi_dustcapino: sending msg nq 1:
+<getProperties version="1.7"/>
+
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read getProperties Filter Simulator FILTER_SLOT 
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read getProperties Filter Simulator FILTER_SLOT 
+2026-02-28T17:05:46: Driver ./indi_dustcapino: snooping on Filter Simulator.FILTER_SLOT
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read getProperties Filter Simulator FILTER_NAME 
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read getProperties Filter Simulator FILTER_NAME 
+2026-02-28T17:05:46: Driver ./indi_dustcapino: snooping on Filter Simulator.FILTER_NAME
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defTextVector DustCapIno DEVICE_PORT Idle rw
+       PORT='/dev/ttyUSB2'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defTextVector DustCapIno DEVICE_PORT Idle rw
+       PORT='/dev/ttyUSB2'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defSwitchVector DustCapIno BAUD_RATE Idle rw
+       9600='Off'
+      19200='Off'
+      57600='Off'
+     115200='On'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defSwitchVector DustCapIno BAUD_RATE Idle rw
+       9600='Off'
+      19200='Off'
+      57600='Off'
+     115200='On'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defSwitchVector DustCapIno LIGHT_SAFETY Ok rw
+       SAFE='On'
+   OVERRIDE='Off'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defSwitchVector DustCapIno LIGHT_SAFETY Ok rw
+       SAFE='On'
+   OVERRIDE='Off'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defNumberVector DustCapIno COVER_ANGLE Idle rw
+      ANGLE='135'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defNumberVector DustCapIno COVER_ANGLE Idle rw
+      ANGLE='135'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defNumberVector DustCapIno DHT_ENV Idle ro
+ TEMPERATURE='0'
+   HUMIDITY='0'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defNumberVector DustCapIno DHT_ENV Idle ro
+ TEMPERATURE='0'
+   HUMIDITY='0'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CONNECTION Idle rw
+    CONNECT='Off'
+ DISCONNECT='On'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CONNECTION Idle rw
+    CONNECT='Off'
+ DISCONNECT='On'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defTextVector DustCapIno DRIVER_INFO Idle ro
+ DRIVER_NAME='DustCapIno'
+ DRIVER_EXEC='indi_dustcapino'
+ DRIVER_VERSION='1.0'
+ DRIVER_INTERFACE='34304'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defTextVector DustCapIno DRIVER_INFO Idle ro
+ DRIVER_NAME='DustCapIno'
+ DRIVER_EXEC='indi_dustcapino'
+ DRIVER_VERSION='1.0'
+ DRIVER_INTERFACE='34304'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defSwitchVector DustCapIno DEBUG Idle rw
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defSwitchVector DustCapIno DEBUG Idle rw
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defSwitchVector DustCapIno SIMULATION Idle rw
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defSwitchVector DustCapIno SIMULATION Idle rw
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CONFIG_PROCESS Idle rw
+ CONFIG_LOAD='Off'
+ CONFIG_SAVE='Off'
+ CONFIG_DEFAULT='Off'
+ CONFIG_PURGE='Off'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CONFIG_PROCESS Idle rw
+ CONFIG_LOAD='Off'
+ CONFIG_SAVE='Off'
+ CONFIG_DEFAULT='Off'
+ CONFIG_PURGE='Off'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defNumberVector DustCapIno POLLING_PERIOD Idle rw
+  PERIOD_MS='1000'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defNumberVector DustCapIno POLLING_PERIOD Idle rw
+  PERIOD_MS='1000'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defTextVector DustCapIno DEVICE_PORT Idle rw
+       PORT='/dev/ttyUSB2'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defTextVector DustCapIno DEVICE_PORT Idle rw
+       PORT='/dev/ttyUSB2'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defSwitchVector DustCapIno BAUD_RATE Idle rw
+       9600='Off'
+      19200='Off'
+      57600='Off'
+     115200='On'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defSwitchVector DustCapIno BAUD_RATE Idle rw
+       9600='Off'
+      19200='Off'
+      57600='Off'
+     115200='On'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defSwitchVector DustCapIno LIGHT_SAFETY Ok rw
+       SAFE='On'
+   OVERRIDE='Off'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defSwitchVector DustCapIno LIGHT_SAFETY Ok rw
+       SAFE='On'
+   OVERRIDE='Off'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defNumberVector DustCapIno COVER_ANGLE Idle rw
+      ANGLE='135'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defNumberVector DustCapIno COVER_ANGLE Idle rw
+      ANGLE='135'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defNumberVector DustCapIno DHT_ENV Idle ro
+ TEMPERATURE='0'
+   HUMIDITY='0'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read defNumberVector DustCapIno DHT_ENV Idle ro
+ TEMPERATURE='0'
+   HUMIDITY='0'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read setSwitchVector DustCapIno DEBUG Ok
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read setSwitchVector DustCapIno DEBUG Ok
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read setNumberVector DustCapIno POLLING_PERIOD Ok
+  PERIOD_MS='1000'
+2026-02-28T17:05:46: Driver ./indi_dustcapino: read setNumberVector DustCapIno POLLING_PERIOD Ok
+  PERIOD_MS='1000'
+2026-02-28T17:06:26: Client 9: new arrival from 127.0.0.1:60476 - welcome!
+2026-02-28T17:06:26: Client 9: read getProperties   
+2026-02-28T17:06:26: Driver ./indi_dustcapino: queuing responsible for <getProperties device='' name=''>
+2026-02-28T17:06:26: Driver ./indi_dustcapino: sending msg nq 1:
+<getProperties version="1.7"/>
+
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CONNECTION Idle rw
+    CONNECT='Off'
+ DISCONNECT='On'
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CONNECTION Idle rw
+    CONNECT='Off'
+ DISCONNECT='On'
+2026-02-28T17:06:26: Client 9: queuing <defSwitchVector device='DustCapIno' name='CONNECTION'>
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defTextVector DustCapIno DRIVER_INFO Idle ro
+ DRIVER_NAME='DustCapIno'
+ DRIVER_EXEC='indi_dustcapino'
+ DRIVER_VERSION='1.0'
+ DRIVER_INTERFACE='34304'
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defTextVector DustCapIno DRIVER_INFO Idle ro
+ DRIVER_NAME='DustCapIno'
+ DRIVER_EXEC='indi_dustcapino'
+ DRIVER_VERSION='1.0'
+ DRIVER_INTERFACE='34304'
+2026-02-28T17:06:26: Client 9: queuing <defTextVector device='DustCapIno' name='DRIVER_INFO'>
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defSwitchVector DustCapIno DEBUG Ok rw
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defSwitchVector DustCapIno DEBUG Ok rw
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:06:26: Client 9: queuing <defSwitchVector device='DustCapIno' name='DEBUG'>
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defSwitchVector DustCapIno SIMULATION Idle rw
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defSwitchVector DustCapIno SIMULATION Idle rw
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:06:26: Client 9: queuing <defSwitchVector device='DustCapIno' name='SIMULATION'>
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CONFIG_PROCESS Idle rw
+ CONFIG_LOAD='Off'
+ CONFIG_SAVE='Off'
+ CONFIG_DEFAULT='Off'
+ CONFIG_PURGE='Off'
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CONFIG_PROCESS Idle rw
+ CONFIG_LOAD='Off'
+ CONFIG_SAVE='Off'
+ CONFIG_DEFAULT='Off'
+ CONFIG_PURGE='Off'
+2026-02-28T17:06:26: Client 9: queuing <defSwitchVector device='DustCapIno' name='CONFIG_PROCESS'>
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defNumberVector DustCapIno POLLING_PERIOD Ok rw
+  PERIOD_MS='1000'
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defNumberVector DustCapIno POLLING_PERIOD Ok rw
+  PERIOD_MS='1000'
+2026-02-28T17:06:26: Client 9: queuing <defNumberVector device='DustCapIno' name='POLLING_PERIOD'>
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defTextVector DustCapIno DEVICE_PORT Idle rw
+       PORT='/dev/ttyUSB2'
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defTextVector DustCapIno DEVICE_PORT Idle rw
+       PORT='/dev/ttyUSB2'
+2026-02-28T17:06:26: Client 9: queuing <defTextVector device='DustCapIno' name='DEVICE_PORT'>
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defSwitchVector DustCapIno BAUD_RATE Idle rw
+       9600='Off'
+      19200='Off'
+      57600='Off'
+     115200='On'
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defSwitchVector DustCapIno BAUD_RATE Idle rw
+       9600='Off'
+      19200='Off'
+      57600='Off'
+     115200='On'
+2026-02-28T17:06:26: Client 9: queuing <defSwitchVector device='DustCapIno' name='BAUD_RATE'>
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defSwitchVector DustCapIno LIGHT_SAFETY Ok rw
+       SAFE='On'
+   OVERRIDE='Off'
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defSwitchVector DustCapIno LIGHT_SAFETY Ok rw
+       SAFE='On'
+   OVERRIDE='Off'
+2026-02-28T17:06:26: Client 9: queuing <defSwitchVector device='DustCapIno' name='LIGHT_SAFETY'>
+2026-02-28T17:06:26: Client 9: sending msg nq 9:
+<defSwitchVector device="DustCapIno" name="CONNECTION" label="Connection" group="Main Control" state="Idle" perm="rw" rule="OneOfMany" timeout="60" timestamp="2026-02-28T17:06:26">
+    <defSwitch name="CONNECT" label="Connect">
+Off
+    </defSwitch>
+    <defSwitch name="DISCONNECT" label="Disconnect">
+On
+    </defSwitch>
+</defSwitchVector>
+
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defNumberVector DustCapIno COVER_ANGLE Idle rw
+      ANGLE='135'
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defNumberVector DustCapIno COVER_ANGLE Idle rw
+      ANGLE='135'
+2026-02-28T17:06:26: Client 9: queuing <defNumberVector device='DustCapIno' name='COVER_ANGLE'>
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defNumberVector DustCapIno DHT_ENV Idle ro
+ TEMPERATURE='0'
+   HUMIDITY='0'
+2026-02-28T17:06:26: Driver ./indi_dustcapino: read defNumberVector DustCapIno DHT_ENV Idle ro
+ TEMPERATURE='0'
+   HUMIDITY='0'
+2026-02-28T17:06:26: Client 9: queuing <defNumberVector device='DustCapIno' name='DHT_ENV'>
+2026-02-28T17:06:26: Client 9: sending msg nq 10:
+<defTextVector device="DustCapIno" name="DRIVER_INFO" label="Driver Info" group="General Info" state="Idle" perm="ro" timeout="60" timestamp="2026-02-28T17:06:26">
+    <defText name="DRIVER_NAME" label="Name">
+DustCapIno
+    </defText>
+    <defText name="DRIVER_EXEC" label="Exec">
+indi_dustcapino
+    </defText>
+    <defText name="DRIVER_VERSION" label="Version">
+1.0
+    </defText>
+    <defText name="DRIVER_INTERFACE" label="Interface">
+34304
+    </defText>
+</defTextVector>
+
+2026-02-28T17:06:26: Client 9: sending msg nq 9:
+<defSwitchVector device="DustCapIno" name="DEBUG" label="Debug" group="Options" state="Ok" perm="rw" rule="OneOfMany" timeout="0" timestamp="2026-02-28T17:06:26">
+    <defSwitch name="ENABLE" label="Enable">
+Off
+    </defSwitch>
+    <defSwitch name="DISABLE" label="Disable">
+On
+    </defSwitch>
+</defSwitchVector>
+
+2026-02-28T17:06:26: Client 9: sending msg nq 8:
+<defSwitchVector device="DustCapIno" name="SIMULATION" label="Simulation" group="Options" state="Idle" perm="rw" rule="OneOfMany" timeout="0" timestamp="2026-02-28T17:06:26">
+    <defSwitch name="ENABLE" label="Enable">
+Off
+    </defSwitch>
+    <defSwitch name="DISABLE" label="Disable">
+On
+    </defSwitch>
+</defSwitchVector>
+
+2026-02-28T17:06:26: Client 9: sending msg nq 7:
+<defSwitchVector device="DustCapIno" name="CONFIG_PROCESS" label="Configuration" group="Options" state="Idle" perm="rw" rule="AtMostOne" timeout="0" timestamp="2026-02-28T17:06:26">
+    <defSwitch name="CONFIG_LOAD" label="Load">
+Off
+    </defSwitch>
+    <defSwitch name="CONFIG_SAVE" label="Save">
+Off
+    </defSwitch>
+    <defSwitch name="CONFIG_DEFAULT" label="Default">
+Off
+    </defSwitch>
+    <defSwitch name="CONFIG_PURGE" label="Purge">
+Off
+    </defSwitch>
+</defSwitchVector>
+
+2026-02-28T17:06:26: Client 9: sending msg nq 6:
+<defNumberVector device="DustCapIno" name="POLLING_PERIOD" label="Polling" group="Options" state="Ok" perm="rw" timeout="0" timestamp="2026-02-28T17:06:26">
+    <defNumber name="PERIOD_MS" label="Period (ms)" format="%.f" min="10" max="600000" step="1000">
+1000
+    </defNumber>
+</defNumberVector>
+
+2026-02-28T17:06:26: Client 9: sending msg nq 5:
+<defTextVector device="DustCapIno" name="DEVICE_PORT" label="Serial" group="Options" state="Idle" perm="rw" timeout="60" timestamp="2026-02-28T17:06:26">
+    <defText name="PORT" label="Port">
+/dev/ttyUSB2
+    </defText>
+</defTextVector>
+
+2026-02-28T17:06:26: Client 9: sending msg nq 4:
+<defSwitchVector device="DustCapIno" name="BAUD_RATE" label="Serial" group="Options" state="Idle" perm="rw" rule="OneOfMany" timeout="0" timestamp="2026-02-28T17:06:26">
+    <defSwitch name="9600" label="9600">
+Off
+    </defSwitch>
+    <defSwitch name="19200" label="19200">
+Off
+    </defSwitch>
+    <defSwitch name="57600" label="57600">
+Off
+    </defSwitch>
+    <defSwitch name="115200" label="115200">
+On
+    </defSwitch>
+</defSwitchVector>
+
+2026-02-28T17:06:26: Client 9: sending msg nq 3:
+<defSwitchVector device="DustCapIno" name="LIGHT_SAFETY" label="Light Safety" group="Main Control" state="Ok" perm="rw" rule="OneOfMany" timeout="0" timestamp="2026-02-28T17:06:26">
+    <defSwitch name="SAFE" label="Safety ON">
+On
+    </defSwitch>
+    <defSwitch name="OVERRIDE" label="Override">
+Off
+    </defSwitch>
+</defSwitchVector>
+
+2026-02-28T17:06:26: Client 9: sending msg nq 2:
+<defNumberVector device="DustCapIno" name="COVER_ANGLE" label="Cover Position" group="Main Control" state="Idle" perm="rw" timeout="0" timestamp="2026-02-28T17:06:26">
+    <defNumber name="ANGLE" label="Angle" format="%.f" min="0" max="270" step="1">
+135
+    </defNumber>
+</defNumberVector>
+
+2026-02-28T17:06:26: Client 9: sending msg nq 1:
+<defNumberVector device="DustCapIno" name="DHT_ENV" label="Environment" group="Main Control" state="Idle" perm="ro" timeout="0" timestamp="2026-02-28T17:06:26">
+    <defNumber name="TEMPERATURE" label="Temperature (C)" format="%.2f" min="-40" max="80" step="0">
+0
+    </defNumber>
+    <defNumber name="HUMIDITY" label="Humidity (%)" format="%.2f" min="0" max="100" step="0">
+0
+    </defNumber>
+</defNumberVector>
+
+2026-02-28T17:06:28: Client 9: read EOF
+2026-02-28T17:06:28: Client 9: shut down complete - bye!
+2026-02-28T17:06:56: Client 9: new arrival from 127.0.0.1:46044 - welcome!
+2026-02-28T17:06:56: Client 9: read getProperties DustCapIno  
+2026-02-28T17:06:56: Driver ./indi_dustcapino: queuing responsible for <getProperties device='DustCapIno' name=''>
+2026-02-28T17:06:56: Driver ./indi_dustcapino: sending msg nq 1:
+<getProperties version="1.7" device="DustCapIno"/>
+
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CONNECTION Idle rw
+    CONNECT='Off'
+ DISCONNECT='On'
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CONNECTION Idle rw
+    CONNECT='Off'
+ DISCONNECT='On'
+2026-02-28T17:06:56: Client 9: queuing <defSwitchVector device='DustCapIno' name='CONNECTION'>
+2026-02-28T17:06:56: Client 9: sending msg nq 1:
+<defSwitchVector device="DustCapIno" name="CONNECTION" label="Connection" group="Main Control" state="Idle" perm="rw" rule="OneOfMany" timeout="60" timestamp="2026-02-28T17:06:56">
+    <defSwitch name="CONNECT" label="Connect">
+Off
+    </defSwitch>
+    <defSwitch name="DISCONNECT" label="Disconnect">
+On
+    </defSwitch>
+</defSwitchVector>
+
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defTextVector DustCapIno DRIVER_INFO Idle ro
+ DRIVER_NAME='DustCapIno'
+ DRIVER_EXEC='indi_dustcapino'
+ DRIVER_VERSION='1.0'
+ DRIVER_INTERFACE='34304'
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defTextVector DustCapIno DRIVER_INFO Idle ro
+ DRIVER_NAME='DustCapIno'
+ DRIVER_EXEC='indi_dustcapino'
+ DRIVER_VERSION='1.0'
+ DRIVER_INTERFACE='34304'
+2026-02-28T17:06:56: Client 9: queuing <defTextVector device='DustCapIno' name='DRIVER_INFO'>
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defSwitchVector DustCapIno DEBUG Ok rw
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defSwitchVector DustCapIno DEBUG Ok rw
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:06:56: Client 9: queuing <defSwitchVector device='DustCapIno' name='DEBUG'>
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defSwitchVector DustCapIno SIMULATION Idle rw
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defSwitchVector DustCapIno SIMULATION Idle rw
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:06:56: Client 9: queuing <defSwitchVector device='DustCapIno' name='SIMULATION'>
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CONFIG_PROCESS Idle rw
+ CONFIG_LOAD='Off'
+ CONFIG_SAVE='Off'
+ CONFIG_DEFAULT='Off'
+ CONFIG_PURGE='Off'
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CONFIG_PROCESS Idle rw
+ CONFIG_LOAD='Off'
+ CONFIG_SAVE='Off'
+ CONFIG_DEFAULT='Off'
+ CONFIG_PURGE='Off'
+2026-02-28T17:06:56: Client 9: queuing <defSwitchVector device='DustCapIno' name='CONFIG_PROCESS'>
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defNumberVector DustCapIno POLLING_PERIOD Ok rw
+  PERIOD_MS='1000'
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defNumberVector DustCapIno POLLING_PERIOD Ok rw
+  PERIOD_MS='1000'
+2026-02-28T17:06:56: Client 9: queuing <defNumberVector device='DustCapIno' name='POLLING_PERIOD'>
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defTextVector DustCapIno DEVICE_PORT Idle rw
+       PORT='/dev/ttyUSB2'
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defTextVector DustCapIno DEVICE_PORT Idle rw
+       PORT='/dev/ttyUSB2'
+2026-02-28T17:06:56: Client 9: queuing <defTextVector device='DustCapIno' name='DEVICE_PORT'>
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defSwitchVector DustCapIno BAUD_RATE Idle rw
+       9600='Off'
+      19200='Off'
+      57600='Off'
+     115200='On'
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defSwitchVector DustCapIno BAUD_RATE Idle rw
+       9600='Off'
+      19200='Off'
+      57600='Off'
+     115200='On'
+2026-02-28T17:06:56: Client 9: queuing <defSwitchVector device='DustCapIno' name='BAUD_RATE'>
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defSwitchVector DustCapIno LIGHT_SAFETY Ok rw
+       SAFE='On'
+   OVERRIDE='Off'
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defSwitchVector DustCapIno LIGHT_SAFETY Ok rw
+       SAFE='On'
+   OVERRIDE='Off'
+2026-02-28T17:06:56: Client 9: queuing <defSwitchVector device='DustCapIno' name='LIGHT_SAFETY'>
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defNumberVector DustCapIno COVER_ANGLE Idle rw
+      ANGLE='135'
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defNumberVector DustCapIno COVER_ANGLE Idle rw
+      ANGLE='135'
+2026-02-28T17:06:56: Client 9: queuing <defNumberVector device='DustCapIno' name='COVER_ANGLE'>
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defNumberVector DustCapIno DHT_ENV Idle ro
+ TEMPERATURE='0'
+   HUMIDITY='0'
+2026-02-28T17:06:56: Driver ./indi_dustcapino: read defNumberVector DustCapIno DHT_ENV Idle ro
+ TEMPERATURE='0'
+   HUMIDITY='0'
+2026-02-28T17:06:56: Client 9: queuing <defNumberVector device='DustCapIno' name='DHT_ENV'>
+2026-02-28T17:06:56: Client 9: sending msg nq 10:
+<defTextVector device="DustCapIno" name="DRIVER_INFO" label="Driver Info" group="General Info" state="Idle" perm="ro" timeout="60" timestamp="2026-02-28T17:06:56">
+    <defText name="DRIVER_NAME" label="Name">
+DustCapIno
+    </defText>
+    <defText name="DRIVER_EXEC" label="Exec">
+indi_dustcapino
+    </defText>
+    <defText name="DRIVER_VERSION" label="Version">
+1.0
+    </defText>
+    <defText name="DRIVER_INTERFACE" label="Interface">
+34304
+    </defText>
+</defTextVector>
+
+2026-02-28T17:06:56: Client 9: sending msg nq 9:
+<defSwitchVector device="DustCapIno" name="DEBUG" label="Debug" group="Options" state="Ok" perm="rw" rule="OneOfMany" timeout="0" timestamp="2026-02-28T17:06:56">
+    <defSwitch name="ENABLE" label="Enable">
+Off
+    </defSwitch>
+    <defSwitch name="DISABLE" label="Disable">
+On
+    </defSwitch>
+</defSwitchVector>
+
+2026-02-28T17:06:56: Client 9: sending msg nq 8:
+<defSwitchVector device="DustCapIno" name="SIMULATION" label="Simulation" group="Options" state="Idle" perm="rw" rule="OneOfMany" timeout="0" timestamp="2026-02-28T17:06:56">
+    <defSwitch name="ENABLE" label="Enable">
+Off
+    </defSwitch>
+    <defSwitch name="DISABLE" label="Disable">
+On
+    </defSwitch>
+</defSwitchVector>
+
+2026-02-28T17:06:56: Client 9: sending msg nq 7:
+<defSwitchVector device="DustCapIno" name="CONFIG_PROCESS" label="Configuration" group="Options" state="Idle" perm="rw" rule="AtMostOne" timeout="0" timestamp="2026-02-28T17:06:56">
+    <defSwitch name="CONFIG_LOAD" label="Load">
+Off
+    </defSwitch>
+    <defSwitch name="CONFIG_SAVE" label="Save">
+Off
+    </defSwitch>
+    <defSwitch name="CONFIG_DEFAULT" label="Default">
+Off
+    </defSwitch>
+    <defSwitch name="CONFIG_PURGE" label="Purge">
+Off
+    </defSwitch>
+</defSwitchVector>
+
+2026-02-28T17:06:56: Client 9: sending msg nq 6:
+<defNumberVector device="DustCapIno" name="POLLING_PERIOD" label="Polling" group="Options" state="Ok" perm="rw" timeout="0" timestamp="2026-02-28T17:06:56">
+    <defNumber name="PERIOD_MS" label="Period (ms)" format="%.f" min="10" max="600000" step="1000">
+1000
+    </defNumber>
+</defNumberVector>
+
+2026-02-28T17:06:56: Client 9: sending msg nq 5:
+<defTextVector device="DustCapIno" name="DEVICE_PORT" label="Serial" group="Options" state="Idle" perm="rw" timeout="60" timestamp="2026-02-28T17:06:56">
+    <defText name="PORT" label="Port">
+/dev/ttyUSB2
+    </defText>
+</defTextVector>
+
+2026-02-28T17:06:56: Client 9: sending msg nq 4:
+<defSwitchVector device="DustCapIno" name="BAUD_RATE" label="Serial" group="Options" state="Idle" perm="rw" rule="OneOfMany" timeout="0" timestamp="2026-02-28T17:06:56">
+    <defSwitch name="9600" label="9600">
+Off
+    </defSwitch>
+    <defSwitch name="19200" label="19200">
+Off
+    </defSwitch>
+    <defSwitch name="57600" label="57600">
+Off
+    </defSwitch>
+    <defSwitch name="115200" label="115200">
+On
+    </defSwitch>
+</defSwitchVector>
+
+2026-02-28T17:06:56: Client 9: sending msg nq 3:
+<defSwitchVector device="DustCapIno" name="LIGHT_SAFETY" label="Light Safety" group="Main Control" state="Ok" perm="rw" rule="OneOfMany" timeout="0" timestamp="2026-02-28T17:06:56">
+    <defSwitch name="SAFE" label="Safety ON">
+On
+    </defSwitch>
+    <defSwitch name="OVERRIDE" label="Override">
+Off
+    </defSwitch>
+</defSwitchVector>
+
+2026-02-28T17:06:56: Client 9: sending msg nq 2:
+<defNumberVector device="DustCapIno" name="COVER_ANGLE" label="Cover Position" group="Main Control" state="Idle" perm="rw" timeout="0" timestamp="2026-02-28T17:06:56">
+    <defNumber name="ANGLE" label="Angle" format="%.f" min="0" max="270" step="1">
+135
+    </defNumber>
+</defNumberVector>
+
+2026-02-28T17:06:56: Client 9: sending msg nq 1:
+<defNumberVector device="DustCapIno" name="DHT_ENV" label="Environment" group="Main Control" state="Idle" perm="ro" timeout="0" timestamp="2026-02-28T17:06:56">
+    <defNumber name="TEMPERATURE" label="Temperature (C)" format="%.2f" min="-40" max="80" step="0">
+0
+    </defNumber>
+    <defNumber name="HUMIDITY" label="Humidity (%)" format="%.2f" min="0" max="100" step="0">
+0
+    </defNumber>
+</defNumberVector>
+
+2026-02-28T17:06:58: Client 9: read EOF
+2026-02-28T17:06:58: Client 9: shut down complete - bye!
+2026-02-28T17:07:18: Client 9: new arrival from 127.0.0.1:39338 - welcome!
+2026-02-28T17:07:18: Client 9: read getProperties   
+2026-02-28T17:07:18: Driver ./indi_dustcapino: queuing responsible for <getProperties device='' name=''>
+2026-02-28T17:07:18: Driver ./indi_dustcapino: sending msg nq 1:
+<getProperties version="1.7"/>
+
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CONNECTION Idle rw
+    CONNECT='Off'
+ DISCONNECT='On'
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CONNECTION Idle rw
+    CONNECT='Off'
+ DISCONNECT='On'
+2026-02-28T17:07:18: Client 9: queuing <defSwitchVector device='DustCapIno' name='CONNECTION'>
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defTextVector DustCapIno DRIVER_INFO Idle ro
+ DRIVER_NAME='DustCapIno'
+ DRIVER_EXEC='indi_dustcapino'
+ DRIVER_VERSION='1.0'
+ DRIVER_INTERFACE='34304'
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defTextVector DustCapIno DRIVER_INFO Idle ro
+ DRIVER_NAME='DustCapIno'
+ DRIVER_EXEC='indi_dustcapino'
+ DRIVER_VERSION='1.0'
+ DRIVER_INTERFACE='34304'
+2026-02-28T17:07:18: Client 9: queuing <defTextVector device='DustCapIno' name='DRIVER_INFO'>
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defSwitchVector DustCapIno DEBUG Ok rw
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defSwitchVector DustCapIno DEBUG Ok rw
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:07:18: Client 9: queuing <defSwitchVector device='DustCapIno' name='DEBUG'>
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defSwitchVector DustCapIno SIMULATION Idle rw
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defSwitchVector DustCapIno SIMULATION Idle rw
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:07:18: Client 9: queuing <defSwitchVector device='DustCapIno' name='SIMULATION'>
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CONFIG_PROCESS Idle rw
+ CONFIG_LOAD='Off'
+ CONFIG_SAVE='Off'
+ CONFIG_DEFAULT='Off'
+ CONFIG_PURGE='Off'
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CONFIG_PROCESS Idle rw
+ CONFIG_LOAD='Off'
+ CONFIG_SAVE='Off'
+ CONFIG_DEFAULT='Off'
+ CONFIG_PURGE='Off'
+2026-02-28T17:07:18: Client 9: queuing <defSwitchVector device='DustCapIno' name='CONFIG_PROCESS'>
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defNumberVector DustCapIno POLLING_PERIOD Ok rw
+  PERIOD_MS='1000'
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defNumberVector DustCapIno POLLING_PERIOD Ok rw
+  PERIOD_MS='1000'
+2026-02-28T17:07:18: Client 9: queuing <defNumberVector device='DustCapIno' name='POLLING_PERIOD'>
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defTextVector DustCapIno DEVICE_PORT Idle rw
+       PORT='/dev/ttyUSB2'
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defTextVector DustCapIno DEVICE_PORT Idle rw
+       PORT='/dev/ttyUSB2'
+2026-02-28T17:07:18: Client 9: queuing <defTextVector device='DustCapIno' name='DEVICE_PORT'>
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defSwitchVector DustCapIno BAUD_RATE Idle rw
+       9600='Off'
+      19200='Off'
+      57600='Off'
+     115200='On'
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defSwitchVector DustCapIno BAUD_RATE Idle rw
+       9600='Off'
+      19200='Off'
+      57600='Off'
+     115200='On'
+2026-02-28T17:07:18: Client 9: queuing <defSwitchVector device='DustCapIno' name='BAUD_RATE'>
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defSwitchVector DustCapIno LIGHT_SAFETY Ok rw
+       SAFE='On'
+   OVERRIDE='Off'
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defSwitchVector DustCapIno LIGHT_SAFETY Ok rw
+       SAFE='On'
+   OVERRIDE='Off'
+2026-02-28T17:07:18: Client 9: queuing <defSwitchVector device='DustCapIno' name='LIGHT_SAFETY'>
+2026-02-28T17:07:18: Client 9: sending msg nq 9:
+<defSwitchVector device="DustCapIno" name="CONNECTION" label="Connection" group="Main Control" state="Idle" perm="rw" rule="OneOfMany" timeout="60" timestamp="2026-02-28T17:07:18">
+    <defSwitch name="CONNECT" label="Connect">
+Off
+    </defSwitch>
+    <defSwitch name="DISCONNECT" label="Disconnect">
+On
+    </defSwitch>
+</defSwitchVector>
+
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defNumberVector DustCapIno COVER_ANGLE Idle rw
+      ANGLE='135'
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defNumberVector DustCapIno COVER_ANGLE Idle rw
+      ANGLE='135'
+2026-02-28T17:07:18: Client 9: queuing <defNumberVector device='DustCapIno' name='COVER_ANGLE'>
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defNumberVector DustCapIno DHT_ENV Idle ro
+ TEMPERATURE='0'
+   HUMIDITY='0'
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read defNumberVector DustCapIno DHT_ENV Idle ro
+ TEMPERATURE='0'
+   HUMIDITY='0'
+2026-02-28T17:07:18: Client 9: queuing <defNumberVector device='DustCapIno' name='DHT_ENV'>
+2026-02-28T17:07:18: Client 9: sending msg nq 10:
+<defTextVector device="DustCapIno" name="DRIVER_INFO" label="Driver Info" group="General Info" state="Idle" perm="ro" timeout="60" timestamp="2026-02-28T17:07:18">
+    <defText name="DRIVER_NAME" label="Name">
+DustCapIno
+    </defText>
+    <defText name="DRIVER_EXEC" label="Exec">
+indi_dustcapino
+    </defText>
+    <defText name="DRIVER_VERSION" label="Version">
+1.0
+    </defText>
+    <defText name="DRIVER_INTERFACE" label="Interface">
+34304
+    </defText>
+</defTextVector>
+
+2026-02-28T17:07:18: Client 9: sending msg nq 9:
+<defSwitchVector device="DustCapIno" name="DEBUG" label="Debug" group="Options" state="Ok" perm="rw" rule="OneOfMany" timeout="0" timestamp="2026-02-28T17:07:18">
+    <defSwitch name="ENABLE" label="Enable">
+Off
+    </defSwitch>
+    <defSwitch name="DISABLE" label="Disable">
+On
+    </defSwitch>
+</defSwitchVector>
+
+2026-02-28T17:07:18: Client 9: sending msg nq 8:
+<defSwitchVector device="DustCapIno" name="SIMULATION" label="Simulation" group="Options" state="Idle" perm="rw" rule="OneOfMany" timeout="0" timestamp="2026-02-28T17:07:18">
+    <defSwitch name="ENABLE" label="Enable">
+Off
+    </defSwitch>
+    <defSwitch name="DISABLE" label="Disable">
+On
+    </defSwitch>
+</defSwitchVector>
+
+2026-02-28T17:07:18: Client 9: sending msg nq 7:
+<defSwitchVector device="DustCapIno" name="CONFIG_PROCESS" label="Configuration" group="Options" state="Idle" perm="rw" rule="AtMostOne" timeout="0" timestamp="2026-02-28T17:07:18">
+    <defSwitch name="CONFIG_LOAD" label="Load">
+Off
+    </defSwitch>
+    <defSwitch name="CONFIG_SAVE" label="Save">
+Off
+    </defSwitch>
+    <defSwitch name="CONFIG_DEFAULT" label="Default">
+Off
+    </defSwitch>
+    <defSwitch name="CONFIG_PURGE" label="Purge">
+Off
+    </defSwitch>
+</defSwitchVector>
+
+2026-02-28T17:07:18: Client 9: sending msg nq 6:
+<defNumberVector device="DustCapIno" name="POLLING_PERIOD" label="Polling" group="Options" state="Ok" perm="rw" timeout="0" timestamp="2026-02-28T17:07:18">
+    <defNumber name="PERIOD_MS" label="Period (ms)" format="%.f" min="10" max="600000" step="1000">
+1000
+    </defNumber>
+</defNumberVector>
+
+2026-02-28T17:07:18: Client 9: sending msg nq 5:
+<defTextVector device="DustCapIno" name="DEVICE_PORT" label="Serial" group="Options" state="Idle" perm="rw" timeout="60" timestamp="2026-02-28T17:07:18">
+    <defText name="PORT" label="Port">
+/dev/ttyUSB2
+    </defText>
+</defTextVector>
+
+2026-02-28T17:07:18: Client 9: sending msg nq 4:
+<defSwitchVector device="DustCapIno" name="BAUD_RATE" label="Serial" group="Options" state="Idle" perm="rw" rule="OneOfMany" timeout="0" timestamp="2026-02-28T17:07:18">
+    <defSwitch name="9600" label="9600">
+Off
+    </defSwitch>
+    <defSwitch name="19200" label="19200">
+Off
+    </defSwitch>
+    <defSwitch name="57600" label="57600">
+Off
+    </defSwitch>
+    <defSwitch name="115200" label="115200">
+On
+    </defSwitch>
+</defSwitchVector>
+
+2026-02-28T17:07:18: Client 9: sending msg nq 3:
+<defSwitchVector device="DustCapIno" name="LIGHT_SAFETY" label="Light Safety" group="Main Control" state="Ok" perm="rw" rule="OneOfMany" timeout="0" timestamp="2026-02-28T17:07:18">
+    <defSwitch name="SAFE" label="Safety ON">
+On
+    </defSwitch>
+    <defSwitch name="OVERRIDE" label="Override">
+Off
+    </defSwitch>
+</defSwitchVector>
+
+2026-02-28T17:07:18: Client 9: sending msg nq 2:
+<defNumberVector device="DustCapIno" name="COVER_ANGLE" label="Cover Position" group="Main Control" state="Idle" perm="rw" timeout="0" timestamp="2026-02-28T17:07:18">
+    <defNumber name="ANGLE" label="Angle" format="%.f" min="0" max="270" step="1">
+135
+    </defNumber>
+</defNumberVector>
+
+2026-02-28T17:07:18: Client 9: sending msg nq 1:
+<defNumberVector device="DustCapIno" name="DHT_ENV" label="Environment" group="Main Control" state="Idle" perm="ro" timeout="0" timestamp="2026-02-28T17:07:18">
+    <defNumber name="TEMPERATURE" label="Temperature (C)" format="%.2f" min="-40" max="80" step="0">
+0
+    </defNumber>
+    <defNumber name="HUMIDITY" label="Humidity (%)" format="%.2f" min="0" max="100" step="0">
+0
+    </defNumber>
+</defNumberVector>
+
+2026-02-28T17:07:18: Client 9: read newSwitchVector DustCapIno CONNECTION 
+    CONNECT='On'
+2026-02-28T17:07:18: Driver ./indi_dustcapino: queuing responsible for <newSwitchVector device='DustCapIno' name='CONNECTION'>
+2026-02-28T17:07:18: Driver ./indi_dustcapino: sending msg nq 1:
+<newSwitchVector device="DustCapIno" name="CONNECTION">
+    <oneSwitch name="CONNECT">
+On
+    </oneSwitch>
+</newSwitchVector>
+
+2026-02-28T17:07:18: Client 9: read EOF
+2026-02-28T17:07:18: Client 9: shut down complete - bye!
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read message DustCapIno   '[INFO] Connected to /dev/ttyUSB2 @ 115200'
+2026-02-28T17:07:18: Driver ./indi_dustcapino: read message DustCapIno   '[INFO] Connected to /dev/ttyUSB2 @ 115200'
+2026-02-28T17:07:20: Driver ./indi_dustcapino: read setSwitchVector DustCapIno CONNECTION Ok
+    CONNECT='On'
+ DISCONNECT='Off'
+2026-02-28T17:07:20: Driver ./indi_dustcapino: read setSwitchVector DustCapIno CONNECTION Ok
+    CONNECT='On'
+ DISCONNECT='Off'
+2026-02-28T17:07:20: Driver ./indi_dustcapino: read defSwitchVector DustCapIno FLAT_LIGHT_CONTROL Idle rw
+ FLAT_LIGHT_ON='Off'
+ FLAT_LIGHT_OFF='On'
+2026-02-28T17:07:20: Driver ./indi_dustcapino: read defSwitchVector DustCapIno FLAT_LIGHT_CONTROL Idle rw
+ FLAT_LIGHT_ON='Off'
+ FLAT_LIGHT_OFF='On'
+2026-02-28T17:07:20: Driver ./indi_dustcapino: read defNumberVector DustCapIno FLAT_LIGHT_INTENSITY Idle rw
+ FLAT_LIGHT_INTENSITY_VALUE='0'
+2026-02-28T17:07:20: Driver ./indi_dustcapino: read defNumberVector DustCapIno FLAT_LIGHT_INTENSITY Idle rw
+ FLAT_LIGHT_INTENSITY_VALUE='0'
+2026-02-28T17:07:20: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CAP_PARK Idle rw
+       PARK='Off'
+     UNPARK='Off'
+2026-02-28T17:07:20: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CAP_PARK Idle rw
+       PARK='Off'
+     UNPARK='Off'
+2026-02-28T17:07:27: Client 9: new arrival from 127.0.0.1:43384 - welcome!
+2026-02-28T17:07:27: Client 9: read getProperties DustCapIno  
+2026-02-28T17:07:27: Driver ./indi_dustcapino: queuing responsible for <getProperties device='DustCapIno' name=''>
+2026-02-28T17:07:27: Driver ./indi_dustcapino: sending msg nq 1:
+<getProperties version="1.7" device="DustCapIno"/>
+
+2026-02-28T17:07:29: Client 9: read EOF
+2026-02-28T17:07:29: Client 9: shut down complete - bye!
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CONNECTION Ok rw
+    CONNECT='On'
+ DISCONNECT='Off'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CONNECTION Ok rw
+    CONNECT='On'
+ DISCONNECT='Off'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defTextVector DustCapIno DRIVER_INFO Idle ro
+ DRIVER_NAME='DustCapIno'
+ DRIVER_EXEC='indi_dustcapino'
+ DRIVER_VERSION='1.0'
+ DRIVER_INTERFACE='34304'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defTextVector DustCapIno DRIVER_INFO Idle ro
+ DRIVER_NAME='DustCapIno'
+ DRIVER_EXEC='indi_dustcapino'
+ DRIVER_VERSION='1.0'
+ DRIVER_INTERFACE='34304'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defSwitchVector DustCapIno DEBUG Ok rw
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defSwitchVector DustCapIno DEBUG Ok rw
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defSwitchVector DustCapIno SIMULATION Idle rw
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defSwitchVector DustCapIno SIMULATION Idle rw
+     ENABLE='Off'
+    DISABLE='On'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CONFIG_PROCESS Idle rw
+ CONFIG_LOAD='Off'
+ CONFIG_SAVE='Off'
+ CONFIG_DEFAULT='Off'
+ CONFIG_PURGE='Off'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CONFIG_PROCESS Idle rw
+ CONFIG_LOAD='Off'
+ CONFIG_SAVE='Off'
+ CONFIG_DEFAULT='Off'
+ CONFIG_PURGE='Off'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defNumberVector DustCapIno POLLING_PERIOD Ok rw
+  PERIOD_MS='1000'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defNumberVector DustCapIno POLLING_PERIOD Ok rw
+  PERIOD_MS='1000'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defTextVector DustCapIno DEVICE_PORT Idle rw
+       PORT='/dev/ttyUSB2'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defTextVector DustCapIno DEVICE_PORT Idle rw
+       PORT='/dev/ttyUSB2'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defSwitchVector DustCapIno BAUD_RATE Idle rw
+       9600='Off'
+      19200='Off'
+      57600='Off'
+     115200='On'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defSwitchVector DustCapIno BAUD_RATE Idle rw
+       9600='Off'
+      19200='Off'
+      57600='Off'
+     115200='On'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defSwitchVector DustCapIno LIGHT_SAFETY Ok rw
+       SAFE='On'
+   OVERRIDE='Off'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defSwitchVector DustCapIno LIGHT_SAFETY Ok rw
+       SAFE='On'
+   OVERRIDE='Off'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defNumberVector DustCapIno COVER_ANGLE Idle rw
+      ANGLE='135'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defNumberVector DustCapIno COVER_ANGLE Idle rw
+      ANGLE='135'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defNumberVector DustCapIno DHT_ENV Idle ro
+ TEMPERATURE='0'
+   HUMIDITY='0'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defNumberVector DustCapIno DHT_ENV Idle ro
+ TEMPERATURE='0'
+   HUMIDITY='0'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defSwitchVector DustCapIno FLAT_LIGHT_CONTROL Idle rw
+ FLAT_LIGHT_ON='Off'
+ FLAT_LIGHT_OFF='On'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defSwitchVector DustCapIno FLAT_LIGHT_CONTROL Idle rw
+ FLAT_LIGHT_ON='Off'
+ FLAT_LIGHT_OFF='On'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defNumberVector DustCapIno FLAT_LIGHT_INTENSITY Idle rw
+ FLAT_LIGHT_INTENSITY_VALUE='0'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defNumberVector DustCapIno FLAT_LIGHT_INTENSITY Idle rw
+ FLAT_LIGHT_INTENSITY_VALUE='0'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CAP_PARK Idle rw
+       PARK='Off'
+     UNPARK='Off'
+2026-02-28T17:07:32: Driver ./indi_dustcapino: read defSwitchVector DustCapIno CAP_PARK Idle rw
+       PARK='Off'
+     UNPARK='Off'
