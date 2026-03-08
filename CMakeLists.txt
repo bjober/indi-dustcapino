@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
+
 project(indi_dustcapino)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -10,10 +11,11 @@ add_executable(indi_dustcapino
 
 # Include headers
 target_include_directories(indi_dustcapino PRIVATE
+    /usr/include/libindi
     /usr/local/include/libindi
 )
 
-# Link explicitly against indidriver
+# Link against INDI driver library
 target_link_libraries(indi_dustcapino
     indidriver
 )
