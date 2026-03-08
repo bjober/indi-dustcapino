@@ -1,0 +1,50 @@
+# =========================
+# Build directories
+# =========================
+build/
+build-*/
+
+# =========================
+# CMake
+# =========================
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# =========================
+# Object / binary files
+# =========================
+*.o
+*.a
+*.so
+*.so.*
+*.out
+*.exe
+
+# =========================
+# Editor files
+# =========================
+*~
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# =========================
+# System files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# Python cache (if scripts added later)
+# =========================
+__pycache__/
+*.pyc
