@@ -1,7 +1,0 @@
-/home/bb/indi-dustcapino/build/CMakeFiles/indi_dustcapino.dir
-/home/bb/indi-dustcapino/build/CMakeFiles/edit_cache.dir
-/home/bb/indi-dustcapino/build/CMakeFiles/rebuild_cache.dir
-/home/bb/indi-dustcapino/build/CMakeFiles/list_install_components.dir
-/home/bb/indi-dustcapino/build/CMakeFiles/install.dir
-/home/bb/indi-dustcapino/build/CMakeFiles/install/local.dir
-/home/bb/indi-dustcapino/build/CMakeFiles/install/strip.dir
