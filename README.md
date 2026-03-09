@@ -1,24 +1,204 @@
 # DustCapIno INDI Driver
 
+![License](https://img.shields.io/github/license/bjober/indi-dustcapino)
+![Language](https://img.shields.io/github/languages/top/bjober/indi-dustcapino)
+![Last Commit](https://img.shields.io/github/last-commit/bjober/indi-dustcapino)
+![Repo Size](https://img.shields.io/github/repo-size/bjober/indi-dustcapino)
+![INDI](https://img.shields.io/badge/INDI-compatible-blue)
+
 INDI driver for the **DustCapIno observatory controller**.
 
-The driver communicates with the DustCapIno firmware over a serial connection
-and provides control of a motorized telescope dust cap, flat-field illumination
-panel and environmental sensors.
+DustCapIno is an Arduino-based controller that provides automated control of a telescope dust cap, flat-field illumination panel, and environmental sensors.
+
+The driver integrates with **INDI** and works with **KStars / Ekos**.
+
+## Why this project exists
+
+Many observatory setups use separate devices for dust cap control, flat-field illumination and environmental monitoring.
+
+DustCapIno was created to combine these functions into a **single compact controller** that integrates cleanly with the INDI ecosystem.
+
+The goals of the project are:
+
+* Provide a **reliable automated dust cap** for remote observatories
+* Integrate a **flat-field panel** for calibration frames
+* Expose **environmental sensor data** to INDI
+* Offer **robust diagnostics and safety features**
+* Maintain a **simple and transparent serial protocol**
+
+The project is designed for **fully unattended astrophotography systems**, where reliability and safe operation are critical.
 
 ## Features
 
-- Motorized telescope dust cap
-- Flat-field illumination panel with dimming
-- DHT22 temperature and humidity sensor
-- Device diagnostics and watchdog
-- Automatic serial port detection
-- Safety system for flat-field light
+* Motorized telescope **dust cap control**
+* **Flat-field light panel** with brightness control
+* **Safety lock** to prevent light when cap is open
+* **Environmental sensors** (temperature and humidity via DHT)
+* **Diagnostics panel**
 
-## Firmware
+  * Controller voltage
+  * Free RAM
+  * Servo PWM
+  * Movement state
+* Automatic **serial port detection**
+* **Reconnect watchdog**
+* **Smart polling** depending on device state
 
-Compatible with **DustCapIno firmware v1.4+**
+---
 
-Firmware is available in the `firmware/` directory.
+## Hardware
 
-## Build
+DustCapIno controller typically includes:
+
+* Arduino-compatible microcontroller
+* Servo motor for dust cap
+* LED flat-field panel
+* DHT22 temperature & humidity sensor
+
+---
+
+## Repository Structure
+
+```
+indi-dustcapino
+│
+├── driver
+│   ├── dustcapino.cpp
+│   ├── dustcapino.h
+│   └── CMakeLists.txt
+│
+├── firmware
+│   └── dustcapino.ino
+│
+├── docs
+│   └── protocol.md
+│
+├── README.md
+├── LICENSE
+└── .gitignore
+```
+
+---
+
+## Build Instructions
+
+Clone the repository:
+
+```
+git clone https://github.com/bjober/indi-dustcapino.git
+```
+
+Build the driver:
+
+```
+cd indi-dustcapino/driver
+mkdir build
+cd build
+cmake ..
+make
+```
+
+---
+
+## Running the Driver
+
+For testing:
+
+```
+indiserver -vvv ./indi_dustcapino
+```
+
+To install system-wide:
+
+```
+sudo make install
+```
+
+The driver will be installed to:
+
+```
+/usr/local/bin/indi_dustcapino
+```
+
+---
+
+## Using with KStars / Ekos
+
+1. Start **KStars**
+2. Open **Ekos**
+3. Add **DustCapIno** as an **Auxiliary device**
+4. Connect the device
+5. Control dust cap and flat panel from the **DustCap / LightBox tabs**
+
+---
+
+## Firmware Compatibility
+
+This driver requires **DustCapIno firmware version 1.4 or newer**.
+
+Firmware source is located in:
+
+```
+firmware/dustcapino.ino
+```
+
+---
+
+## Serial Protocol
+
+### Commands
+
+```
+CMD:OPEN
+CMD:CLOSE
+CMD:ANGLE:<value>
+CMD:STATUS
+CMD:LIGHT_ON
+CMD:LIGHT_OFF
+CMD:BRIGHTNESS:<value>
+CMD:READ_DHT
+CMD:HELLO
+```
+
+### Firmware Responses
+
+```
+HELLO:DUSTCAPINO,...
+STATUS:<state>,<angle>,<brightness>,<safety>
+DHT:<temperature>,<humidity>
+DBG pulse=<value> VCC=<value> RAM=<value> moving=<0|1>
+```
+
+### Error Messages
+
+```
+SERVO_STALL
+SERVO_POWER_FAIL
+MOVE_TIMEOUT
+FAILSAFE_CLOSE
+```
+
+---
+
+## Development
+
+After modifying the driver source code, rebuild using:
+
+```
+cd driver/build
+make
+```
+
+Then run the driver again using `indiserver`.
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+---
+
+## Author
+
+Björn Bergman
