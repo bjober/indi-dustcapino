@@ -35,6 +35,9 @@
 #include <termios.h>
 #include <cstring>
 #include <unistd.h>
+#include <sys/ioctl.h>
+#include <dirent.h>
+#include <sys/stat.h>
 
 //=============================================================================
 // SECTION 2 — DRIVER INSTANCE
@@ -297,12 +300,14 @@ bool DustCapIno::Connect()
 if (strcmp(port, "AUTO") != 0)
 {
     if (tty_connect(port, baud, 8, 0, 1, &PortFD) == TTY_OK)
-    {
-        LOGF_INFO("Connected using saved port %s", port);
-        return true;
-    }
+{
+    // Disable Arduino auto-reset
+    int flags = TIOCM_DTR;
+    ioctl(PortFD, TIOCMBIC, &flags);
 
-    LOGF_WARN("Saved port %s failed, falling back to auto detect", port);
+    LOGF_INFO("Connected using saved port %s", port);
+    return true;
+}
 }
 
 // AUTO eller fallback
@@ -401,7 +406,6 @@ bool DustCapIno::autoDetectPort()
 
     const char* prefixes[] = {"/dev/ttyUSB", "/dev/ttyACM"};
 
-
     for (const char* prefix : prefixes)
     {
         for (int i = 0; i < 3; i++)
@@ -414,164 +418,75 @@ bool DustCapIno::autoDetectPort()
             if (tty_connect(port, baud, 8, 0, 1, &fd) != TTY_OK)
                 continue;
 
-            // Vänta på Arduino boot
-            usleep(400000);
+            usleep(200000);
             tcflush(fd, TCIOFLUSH);
 
             int written = 0;
-
-
+            tty_write_string(fd, "CMD:HELLO\n", &written);
 
             char buffer[128] = {0};
             int nbytes_read = 0;
 
             bool detected = false;
-bool timeoutOccurred = true;
-bool wrongFirmware = false;
 
-tty_write_string(fd, "CMD:HELLO\n", &written);
+            for (int attempt = 0; attempt < 3; attempt++)
+            {
+                memset(buffer, 0, sizeof(buffer));
 
-for (int attempt = 0; attempt < 5; attempt++)
-{
-    memset(buffer, 0, sizeof(buffer));
+                int rc = tty_read_section(fd, buffer, '\n', 0.3, &nbytes_read);
 
-    int rc = tty_read_section(fd, buffer, '\n', 0.5, &nbytes_read);
+                if (rc == TTY_OK && nbytes_read > 0)
+                {
+                    buffer[strcspn(buffer, "\r\n")] = 0;
 
-    if (rc == TTY_OK && nbytes_read > 0)
-    {
-        timeoutOccurred = false;
+                    LOGF_INFO("Handshake RX on %s: %s", port, buffer);
 
-        buffer[strcspn(buffer, "\r\n")] = 0;
+                    if (strstr(buffer, "HELLO:DUSTCAPINO") != nullptr ||
+                        strstr(buffer, "DUSTCAPINO_V1.") != nullptr)
+                    {
+                        firmwareVersion = buffer;
+                        detected = true;
+                        break;
+                    }
+                }
 
-        LOGF_INFO("Handshake RX on %s: %s", port, buffer);
+                usleep(100000);
+            }
 
-      if (strstr(buffer, "HELLO:DUSTCAPINO") != nullptr ||
-    strstr(buffer, "DUSTCAPINO_V1.") != nullptr)
-{
-    firmwareVersion = buffer;
-    detected = true;
-    break;
-}
-else
-{
-    wrongFirmware = true;
-}
-    }
+            if (detected)
+            {
+                LOGF_INFO("DustCapIno detected on %s", port);
 
-    usleep(200000);
-}
+                PortFD = fd;
 
-if (detected)
-{
-    LOGF_INFO("DustCapIno detected via handshake on %s", port);
+                SerialPortTP[0].setText(port);
+                SerialPortTP.setState(IPS_OK);
+                SerialPortTP.apply();
 
-    bool wasDisconnected = (PortFD <= 0);
+                saveConfig();
 
-    PortFD = fd;
+                HandshakeTP[0].setText("Handshake OK");
+                HandshakeTP.setState(IPS_OK);
+                HandshakeTP.apply();
 
-    SerialPortTP[0].setText(port);
-    SerialPortTP.setState(IPS_OK);
-    SerialPortTP.apply();
-saveConfig();
+                // Force immediate state sync
+                sendCommand("CMD:STATUS\n");
 
+                // Prevent immediate duplicate STATUS from TimerHit
+                lastStatusRequest = time(nullptr);
 
-    // Handshake OK
-    HandshakeTP[0].setText("Handshake OK");
-    HandshakeTP.setState(IPS_OK);
-    HandshakeTP.apply();
-
-    // 🔥 Restore cached UI only on reconnect
-    if (wasDisconnected)
-    {
-        LOG_INFO("Restoring cached state after reconnect");
-
-        if (lastAngle <= 1.0)
-    capState = CapState::OPEN;
-else if (lastAngle >= 269.0)
-    capState = CapState::CLOSED;
-else
-    capState = CapState::OPEN;
-
-// 🔥 SÄTT GILTIGT STARTLÄGE FÖR CAP_PARK
-ParkCapSP.reset();
-
-if (capState == CapState::OPEN)
-{
-    ParkCapSP[1].setState(ISS_ON);  // UNPARK
-}
-else
-{
-    ParkCapSP[0].setState(ISS_ON);  // PARK
-}
-
-ParkCapSP.setState(IPS_OK);
-ParkCapSP.apply();
-
-if (lastBrightness > 0)
-{
-    sendCommand("CMD:LIGHT_ON\n");
-
-    char cmd[32];
-    snprintf(cmd, sizeof(cmd), "CMD:BRIGHTNESS:%d\n", lastBrightness);
-    sendCommand(cmd);
-}
-
-sendCommand("CMD:LIGHT_ON\n");
-
-        LightSP.reset();
-        LightSP[lastBrightness > 0 ? 0 : 1].setState(ISS_ON);
-        LightSP.setState(IPS_OK);
-        LightSP.apply();
-
-        LightIntensityNP[0].setValue(lastBrightness);
-        LightIntensityNP.setState(IPS_OK);
-        LightIntensityNP.apply();
-        if (lastBrightness > 0)
-        {
-            char cmd[32];
-            snprintf(cmd, sizeof(cmd), "CMD:BRIGHTNESS:%d\n", lastBrightness);
-            sendCommand(cmd);
-        }
-
-        SafetyOverrideSP.reset();
-        SafetyOverrideSP[lastSafe ? 0 : 1].setState(ISS_ON);
-        SafetyOverrideSP.setState(IPS_OK);
-        SafetyOverrideSP.apply();
-
-        EnvNP[0].setValue(lastTemp);
-        EnvNP[1].setValue(lastHum);
-        EnvNP.setState(IPS_OK);
-        EnvNP.apply();
-    }
-
-    return true;
-}
-else
-{
-    if (timeoutOccurred)
-    {
-        HandshakeTP[0].setText("No response (timeout)");
-    }
-    else if (wrongFirmware)
-    {
-        HandshakeTP[0].setText("Wrong firmware detected");
-    }
-    else
-    {
-        HandshakeTP[0].setText("Unknown device");
-    }
-
-    HandshakeTP.setState(IPS_ALERT);
-    HandshakeTP.apply();
-}
+                return true;
+            }
 
             tty_disconnect(fd);
         }
     }
 
     LOG_ERROR("Auto-detect failed (no valid handshake)");
+
     SerialPortTP.setState(IPS_ALERT);
     SerialPortTP.apply();
+
     return false;
 }
 
@@ -768,12 +683,17 @@ bool DustCapIno::EnableLightBox(bool enable)
 
     bool isClosed = (capState == CapState::CLOSED);
 
-// if (enable && safetyOn && !isClosed)
-//     {
-//         LOG_WARN("Light blocked by safety");
-//         return false;
-//     }
+if (enable && safetyOn && !isClosed)
+{
+    LOG_WARN("Light blocked — cap not closed");
 
+    LightSP.reset();
+    LightSP[1].setState(ISS_ON);
+    LightSP.setState(IPS_OK);
+    LightSP.apply();
+
+    return false;
+}
     int written = 0;
 
     if (enable)
@@ -869,6 +789,21 @@ void DustCapIno::parseHello(const char *buffer)
     FirmwareInfoTP.apply();
 
     LOGF_INFO("Firmware detected: %s (%s)", version, build);
+
+    // --------------------------------------------------
+    // Detect controller reboot
+    // --------------------------------------------------
+
+    if (lastHeartbeat > 0)
+    {
+        LOG_WARN("Controller reboot detected — restoring session");
+
+        capState = CapState::UNKNOWN;
+
+        sendCommand("CMD:STATUS\n");
+    }
+
+    lastHeartbeat = time(nullptr);
 }
 
 void DustCapIno::parseStatus(const char *buffer)
@@ -951,6 +886,8 @@ void DustCapIno::parseStatus(const char *buffer)
     {
         capState = CapState::ALERT;
     }
+    // reset movement watchdog when valid STATUS arrives
+    movingCounter = 0;
 
     bool movementFinished =
         (previousState == CapState::MOVING &&
@@ -1059,7 +996,7 @@ void DustCapIno::parseDiagnostics(char *buffer)
         token = strtok(nullptr, " ");
     }
 
-    if (vcc <= 0)
+    if (vcc < 3000)
         return;
 
     double voltage = vcc / 1000.0;
@@ -1097,21 +1034,40 @@ void DustCapIno::parseDiagnostics(char *buffer)
             LOG_DEBUG("Servo movement stopped");
     }
 
-    // Servo pulse
+    // --------------------------------------------------
+    // Servo pulse diagnostics
+    // --------------------------------------------------
+
     if (pulse < 0)
     {
-        if (lastPulse >= 0)
-            LOG_WARN("Servo pulse invalid");
-
         HealthNP[2].setValue(0);
-        state = IPS_ALERT;
+
+        if (movingFlag)
+        {
+            if (lastPulse >= 0)
+                LOG_WARN("Servo moving but no PWM detected");
+
+            state = IPS_ALERT;
+        }
+        else
+        {
+            if (lastPulse >= 0)
+                LOG_DEBUG("Servo idle (no PWM)");
+
+            state = IPS_OK;
+        }
+
+        lastPulse = -1;
         changed = true;
     }
-    else if (lastPulse != pulse)
+    else
     {
-        HealthNP[2].setValue(pulse);
-        lastPulse = pulse;
-        changed = true;
+        if (lastPulse != pulse)
+        {
+            HealthNP[2].setValue(pulse);
+            lastPulse = pulse;
+            changed = true;
+        }
     }
 
     // Voltage warning
@@ -1272,26 +1228,25 @@ void DustCapIno::TimerHit()
     int interval = 1000;
 
     if (capState == CapState::MOVING)
-        interval = 100;
+        interval = 250;
     else if (capState == CapState::ALERT)
         interval = 2000;
     else
         interval = 1500;
 
-    time_t nowStatus = time(nullptr);
-
-    if (capState == CapState::MOVING)
-    {
-        sendCommand("CMD:STATUS\n");
-    }
-    else if (nowStatus - lastStatusRequest > 3)
-    {
-        sendCommand("CMD:STATUS\n");
-        lastStatusRequest = nowStatus;
-    }
-
-    static time_t lastDHT = 0;
     now = time(nullptr);
+
+    // STATUS polling
+    int statusInterval = (capState == CapState::MOVING) ? 1 : 3;
+
+    if (now - lastStatusRequest >= statusInterval)
+    {
+        sendCommand("CMD:STATUS\n");
+        lastStatusRequest = now;
+    }
+
+    // DHT polling
+    static time_t lastDHT = 0;
 
     if (now - lastDHT > 10)
     {

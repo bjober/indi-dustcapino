@@ -63,6 +63,15 @@ private:
         MOVE_CLOSE
     };
 
+    enum ServoState
+    {
+        SERVO_IDLE,
+        SERVO_MOVING,
+        SERVO_FAULT
+    };
+
+    ServoState servoState = SERVO_IDLE;
+
     CapState capState = CapState::UNKNOWN;
     LastMove lastMove = MOVE_NONE;
 
