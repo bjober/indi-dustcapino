@@ -28,6 +28,16 @@ The goals of the project are:
 
 The project is designed for **fully unattended astrophotography systems**, where reliability and safe operation are critical.
 
+## System overview
+
+![DustCapIno System](docs/system-overview.png)
+*System overview of the DustCapIno observatory controller.*
+
+DustCapIno connects the telescope dust cap hardware to the INDI ecosystem
+via a simple USB serial protocol. The controller manages the servo motor,
+flat-field panel and environmental sensors, while the INDI driver exposes
+the functionality to Ekos.
+
 ## Features
 
 * Motorized telescope **dust cap control**
@@ -132,6 +142,44 @@ The driver will be installed to:
 
 ---
 
+## Example Workflow
+
+A typical imaging session using DustCapIno with Ekos might look like this:
+
+### 1. Observatory startup
+
+* Start **INDI server**
+* Connect DustCapIno controller
+* Verify dust cap status and environmental sensors
+
+### 2. Telescope preparation
+
+* **Unpark dust cap**
+* Slew telescope to target
+* Begin focusing and guiding
+
+### 3. Imaging session
+
+* Capture light frames normally
+* DustCapIno monitors system status via the INDI driver
+
+### 4. Flat frame acquisition
+
+When the imaging session ends:
+
+1. Park the telescope
+2. Close the **dust cap**
+3. Turn on the **flat-field panel**
+4. Capture flat frames automatically in Ekos
+
+### 5. Shutdown
+
+* Turn off flat panel
+* Park the dust cap
+* Disconnect devices
+
+This workflow enables a **fully automated calibration process**, which is especially useful for remote observatories and unattended imaging sessions.
+
 ## Firmware Compatibility
 
 This driver requires **DustCapIno firmware version 1.4 or newer**.
@@ -198,6 +246,11 @@ Then run the driver again using `indiserver`.
 This project is licensed under the MIT License.
 
 ---
+
+## Development Status
+
+DustCapIno is under active development and is currently used in a working observatory setup.  
+The focus is on reliability and stable operation with INDI / Ekos.
 
 ## Author
 
