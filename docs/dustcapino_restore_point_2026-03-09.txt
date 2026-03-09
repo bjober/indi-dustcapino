@@ -1,0 +1,179 @@
+DustCapIno Project – Restore Point Date: 2026-03-09 Author: Björn
+Bergman
+
+==================================================== PROJECT OVERVIEW
+====================================================
+
+DustCapIno is an Arduino-based observatory controller integrated with
+the INDI ecosystem. The system controls a motorized telescope dust cap,
+flat-field illumination panel, environmental sensors, and diagnostics
+via a serial protocol.
+
+The INDI driver communicates with the DustCapIno firmware over USB
+serial.
+
+Primary goals of the project: - Reliable dust cap automation -
+Integrated flat-field illumination - Environmental monitoring - Robust
+diagnostics and safety mechanisms - Stable operation for unattended
+astrophotography
+
+==================================================== REPOSITORY
+STRUCTURE ====================================================
+
+indi-dustcapino │ ├── driver │ ├── dustcapino.cpp │ ├── dustcapino.h │
+└── CMakeLists.txt │ ├── firmware │ └── dustcapino.ino │ ├── docs │ ├──
+git-cheatsheet.md │ ├── indi-driver-cheatsheet.md │ ├──
+developer-restore.md │ └── system-overview.png │ ├── README.md ├──
+CHANGELOG.md └── LICENSE
+
+==================================================== CURRENT DRIVER
+CAPABILITIES ====================================================
+
+Dust Cap Control - Park / Unpark - Partial opening via percentage
+slider - Movement detection - Retry logic on movement timeout
+
+Flat Field Panel - On / Off control - Brightness control - Safety lock
+when cap is open - Override capability
+
+Environmental Sensors - DHT temperature - DHT humidity
+
+Diagnostics - Controller voltage - Free RAM - Servo PWM pulse - Servo
+movement state
+
+==================================================== DRIVER STABILITY
+FEATURES ====================================================
+
+-   Automatic serial port detection
+-   Reconnect watchdog
+-   STATUS watchdog
+-   Smart polling depending on cap state
+-   Cached UI state restoration
+-   Servo diagnostic logic
+
+==================================================== SERIAL PROTOCOL
+SUMMARY ====================================================
+
+Commands:
+
+CMD:OPEN CMD:CLOSE CMD:ANGLE: CMD:STATUS CMD:LIGHT_ON CMD:LIGHT_OFF
+CMD:BRIGHTNESS: CMD:READ_DHT CMD:HELLO
+
+Firmware Responses:
+
+HELLO:DUSTCAPINO,… STATUS:,,, DHT:, DBG pulse= VCC= RAM= moving=<0|1>
+
+Error Messages:
+
+SERVO_STALL SERVO_POWER_FAIL MOVE_TIMEOUT FAILSAFE_CLOSE
+
+==================================================== TESTED SOFTWARE
+ENVIRONMENT ====================================================
+
+Operating System Ubuntu Linux (observatory control system)
+
+INDI Library
+
+Detected using:
+
+indiserver -v
+
+Result:
+
+INDI Library: 2.1.9 Code v2.1.9-5-g840fed446 Protocol 1.7
+
+KStars / Ekos Used as client software connecting to the local INDI
+server.
+
+Connection host:
+
+localhost
+
+==================================================== HARDWARE
+ENVIRONMENT ====================================================
+
+Controller Arduino-based DustCapIno controller
+
+Functions handled by controller: - Servo motor control - Flat-field
+illumination - Environmental sensors - Diagnostics reporting
+
+Servo Motor PWM controlled servo used to open/close dust cap.
+
+Sensor DHT22 temperature and humidity sensor.
+
+Flat Panel Integrated LED flat-field panel controlled via PWM
+brightness.
+
+==================================================== SERIAL CONNECTION
+====================================================
+
+Typical device paths:
+
+/dev/ttyUSB /dev/ttyACM
+
+The driver performs automatic port detection.
+
+==================================================== DEVELOPMENT
+WORKFLOW ====================================================
+
+Build the driver:
+
+cd driver/build make
+
+Run the driver directly:
+
+indiserver -vvv ./indi_dustcapino
+
+Install system-wide:
+
+sudo make install
+
+==================================================== TYPICAL DEVELOPMENT
+LOOP ====================================================
+
+make pkill indiserver indiserver -vvv ./indi_dustcapino
+
+==================================================== QUICK SYSTEM CHECK
+====================================================
+
+1.  Verify INDI installation:
+
+indiserver -v
+
+2.  Check serial devices:
+
+ls /dev/ttyUSB ls /dev/ttyACM
+
+3.  Start driver:
+
+indiserver -vvv ./indi_dustcapino
+
+4.  Confirm firmware handshake:
+
+HELLO:DUSTCAPINO
+
+5.  Verify periodic status updates:
+
+STATUS:IDLE_OPEN STATUS:IDLE_CLOSED STATUS:MOVING
+
+6.  Verify diagnostics:
+
+DBG pulse= VCC= RAM= moving=<0|1>
+
+7.  Connect using KStars / Ekos to:
+
+localhost
+
+==================================================== PROJECT STATUS
+====================================================
+
+The system is currently operational and used in a real observatory
+setup.
+
+Development priorities: - reliability - stable INDI integration - safe
+automated operation
+
+Future improvements may include additional diagnostics, firmware version
+checks, and packaging support.
+
+==================================================== END OF RESTORE
+POINT ====================================================
