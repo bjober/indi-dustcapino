@@ -1,24 +1,35 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.18)
 
-project(indi_dustcapino)
+project(indi_dustcapino VERSION 1.99.0 LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+include(GNUInstallDirs)
 
-add_executable(indi_dustcapino
-    dustcapino.cpp
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+
+option(DUSTCAPINO_KSTARS_FLATPAK
+       "Build inside KStars Flatpak against its bundled INDI runtime" OFF)
+set(INDI_SOURCE_ROOT "" CACHE PATH
+    "Matching INDI source tree used for headers in Flatpak mode")
+
+if(DUSTCAPINO_KSTARS_FLATPAK)
+    include(cmake/FlatpakINDI.cmake)
+else()
+    # System-package mode remains available for distributions that provide a
+    # complete libindi-dev package.
+    find_package(INDI 2.2.4 REQUIRED)
+endif()
+
+add_executable(indi_dustcapino dustcapino.cpp)
+
+target_compile_features(indi_dustcapino PRIVATE cxx_std_17)
+target_compile_options(indi_dustcapino PRIVATE
+    $<$<CXX_COMPILER_ID:GNU,Clang>:-Wall;-Wextra;-Wpedantic>
 )
+target_link_libraries(indi_dustcapino PRIVATE INDI::Driver)
 
-# Include headers
-target_include_directories(indi_dustcapino PRIVATE
-    /usr/include/libindi
-    /usr/local/include/libindi
-)
-
-# Link against INDI driver library
-target_link_libraries(indi_dustcapino
-    indidriver
-)
+configure_file(indi_dustcapino.xml.in indi_dustcapino.xml @ONLY)
 
 install(TARGETS indi_dustcapino
-        RUNTIME DESTINATION bin)
+        RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/indi_dustcapino.xml"
+        DESTINATION "${CMAKE_INSTALL_DATADIR}/indi")

@@ -1,0 +1,4 @@
+# Replace @FTDI_SERIAL@ with the unique serial number reported as
+# ID_SERIAL_SHORT by udevadm. Do not match only the FTDI model when more than
+# one USB serial adapter may be connected.
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", ATTRS{serial}=="@FTDI_SERIAL@", SYMLINK+="dustcapino", GROUP="dialout", MODE="0660", TAG+="uaccess"

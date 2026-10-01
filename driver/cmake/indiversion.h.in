@@ -1,0 +1,7 @@
+#pragma once
+
+#define INDI_VERSION_MAJOR   @_INDI_SOURCE_MAJOR@
+#define INDI_VERSION_MINOR   @_INDI_SOURCE_MINOR@
+#define INDI_VERSION_RELEASE @_INDI_SOURCE_RELEASE@
+#define INDI_VERSION         "@INDI_VERSION@"
+#define DATA_INSTALL_DIR     "/app/share/indi"

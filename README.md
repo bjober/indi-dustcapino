@@ -75,13 +75,26 @@ indi-dustcapino
 ├── driver
 │   ├── dustcapino.cpp
 │   ├── dustcapino.h
+│   ├── cmake/FindINDI.cmake
+│   ├── cmake/FlatpakINDI.cmake
+│   ├── cmake/indiversion.h.in
+│   ├── indi_dustcapino.xml.in
 │   └── CMakeLists.txt
 │
 ├── firmware
-│   └── dustcapino.ino
+│   └── dustcapino
+│       ├── dustcapino.ino
+│       └── sketch.yaml
 │
 ├── docs
-│   └── protocol.md
+│   ├── protocol.md
+│   └── udev.md
+│
+├── scripts
+│   └── install-udev-rule.sh
+│
+├── udev
+│   └── 99-dustcapino.rules.example
 │
 ├── README.md
 ├── LICENSE
@@ -90,7 +103,26 @@ indi-dustcapino
 
 ---
 
+## Supported dependency baseline
+
+The current reproducible build baseline is:
+
+* **INDI Library 2.2.4** for current stable KStars Flatpak (exact match)
+* **INDI Library 2.2.4 or newer** when using native system packages
+* **Arduino AVR Boards 1.8.8** for ATmega328P firmware
+* **Servo 1.3.0**
+* **DHT sensor library 1.4.7**
+* **Adafruit Unified Sensor 1.1.15**
+
+The firmware versions are pinned in `firmware/dustcapino/sketch.yaml`.
+CMake checks the installed INDI version and stops instead of silently building
+against an older API.
+
 ## Build Instructions
+
+For the recommended KStars Flatpak installation, use the Flatpak build below.
+It deliberately links against the exact INDI runtime bundled with KStars;
+`libindi-dev` is not required on the host.
 
 Clone the repository:
 
@@ -98,37 +130,88 @@ Clone the repository:
 git clone https://github.com/bjober/indi-dustcapino.git
 ```
 
-Build the driver:
+Check the INDI version bundled with KStars and obtain the matching source tag
+for its headers. For the current stable KStars 3.8.4 package this is INDI 2.2.4:
 
 ```
-cd indi-dustcapino/driver
-mkdir build
-cd build
-cmake ..
-make
+cd indi-dustcapino
+git clone --depth 1 --branch v2.2.4 \
+  https://github.com/indilib/indi.git build/indi-source-2.2.4
+```
+
+Configure and build inside the SDK declared by KStars Flatpak:
+
+```
+flatpak run --devel --branch=stable --command=sh org.kde.kstars -c '
+  cmake -S driver -B build/flatpak \
+    -DDUSTCAPINO_KSTARS_FLATPAK=ON \
+    -DINDI_SOURCE_ROOT="$PWD/build/indi-source-2.2.4" \
+    -DCMAKE_INSTALL_PREFIX="$HOME/.local" &&
+  cmake --build build/flatpak
+'
+```
+
+CMake compares the source version with KStars' actual
+`/app/lib/libindidriver.so` and refuses a mismatched build. The resulting
+binary has `/app/lib` as its runtime search path.
+
+Systems that provide a complete native `libindi-dev` package can instead use:
+
+```
+cmake -S driver -B build/system
+cmake --build build/system
+```
+
+Build the firmware reproducibly for the board in use:
+
+```
+arduino-cli compile --profile uno firmware/dustcapino
+# or: arduino-cli compile --profile nano firmware/dustcapino
 ```
 
 ---
 
 ## Running the Driver
 
-For testing:
+For a passive start test against Flatpak's INDI server:
 
 ```
-indiserver -vvv ./indi_dustcapino
+flatpak run --devel --branch=stable --command=sh org.kde.kstars -c '
+  timeout 3 /app/bin/indiserver -vvv \
+    /home/bb/Projects/indi-dustcapino/build/flatpak/indi_dustcapino
+'
 ```
 
-To install system-wide:
+Install the Flatpak-compatible binary in the user-owned path visible to the
+KStars sandbox:
 
 ```
-sudo make install
+install -Dm755 build/flatpak/indi_dustcapino \
+  "$HOME/.local/bin/indi_dustcapino"
 ```
 
-The driver will be installed to:
+Register it in **Ekos → Custom Drivers…** with:
 
+* Name and label: `DustCapIno`
+* Family: `Auxiliary`
+* Executable: `/home/bb/.local/bin/indi_dustcapino`
+
+Do not use `/usr/local/bin` for the Flatpak integration. `/usr` is reserved by
+Flatpak and is not shared into the sandbox.
+
+### Persistent serial device name
+
+Do not rely on a changing name such as `/dev/ttyUSB2`. Create a friendly,
+persistent `/dev/dustcapino` link matched to the FTDI adapter's unique serial
+number:
+
+```sh
+./scripts/install-udev-rule.sh BG02AEVB dustcapino
 ```
-/usr/local/bin/indi_dustcapino
-```
+
+Then set the INDI device port to `/dev/dustcapino` and save the configuration.
+See [docs/udev.md](docs/udev.md) for identity discovery, installation,
+verification, Flatpak notes, and adapter replacement instructions.
 
 ---
 
@@ -137,8 +220,9 @@ The driver will be installed to:
 1. Start **KStars**
 2. Open **Ekos**
 3. Add **DustCapIno** as an **Auxiliary device**
-4. Connect the device
-5. Control dust cap and flat panel from the **DustCap / LightBox tabs**
+4. Set **Device port** to `/dev/dustcapino` and **Baud rate** to `115200`
+5. Connect the device
+6. Control dust cap and flat panel from the **DustCap / LightBox tabs**
 
 ---
 
@@ -187,7 +271,7 @@ This driver requires **DustCapIno firmware version 1.4 or newer**.
 Firmware source is located in:
 
 ```
-firmware/dustcapino.ino
+firmware/dustcapino/dustcapino.ino
 ```
 
 ---
@@ -233,8 +317,7 @@ FAILSAFE_CLOSE
 After modifying the driver source code, rebuild using:
 
 ```
-cd driver/build
-make
+cmake --build build/flatpak
 ```
 
 Then run the driver again using `indiserver`.

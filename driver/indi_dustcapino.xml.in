@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<driversList>
+  <devGroup group="Auxiliary">
+    <device label="DustCapIno" manufacturer="Björn Bergman">
+      <driver name="DustCapIno">indi_dustcapino</driver>
+      <version>@PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@</version>
+    </device>
+  </devGroup>
+</driversList>

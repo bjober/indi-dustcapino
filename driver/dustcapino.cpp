@@ -266,6 +266,12 @@ defineProperty(MaintenanceSP);
 
     defineProperty(HealthNP);
 
+    // Serial identity must be available before Connect() runs. DefaultDevice
+    // only restores its own standard properties automatically.
+    loadConfig(true, "DEVICE_PORT");
+    loadConfig(true, "BAUD_RATE");
+    loadConfig(true, "LIGHT_SAFETY");
+
     return true;
 }
 
@@ -287,6 +293,16 @@ bool DustCapIno::updateProperties()
     return true;
 }
 
+bool DustCapIno::saveConfigItems(FILE *fp)
+{
+    INDI::DefaultDevice::saveConfigItems(fp);
+    INDI::LightBoxInterface::saveConfigItems(fp);
+    SerialPortTP.save(fp);
+    BaudRateSP.save(fp);
+    SafetyOverrideSP.save(fp);
+    return true;
+}
+
 bool DustCapIno::Connect()
 {
     int baud = 9600;
@@ -296,54 +312,75 @@ bool DustCapIno::Connect()
 
     const char *port = SerialPortTP[0].getText();
 
-
-if (strcmp(port, "AUTO") != 0)
-{
-    if (tty_connect(port, baud, 8, 0, 1, &PortFD) == TTY_OK)
-{
-    // Disable Arduino auto-reset
-    int flags = TIOCM_DTR;
-    ioctl(PortFD, TIOCMBIC, &flags);
-
-    LOGF_INFO("Connected using saved port %s", port);
-    return true;
-}
-}
-
-// AUTO eller fallback
-if (!autoDetectPort())
-{
-    LOG_ERROR("Auto detect failed");
-    return false;
-}
-
-tcflush(PortFD, TCIOFLUSH);
-
-int written = 0;
-tty_write_string(PortFD, "CMD:HELLO\n", &written);
-
-char buffer[128] = {0};
-int nbytes_read = 0;
-
-if (tty_read_section(PortFD, buffer, '\n', 1, &nbytes_read) == TTY_OK)
-{
-    buffer[strcspn(buffer, "\r\n")] = 0;
-
-    if (strstr(buffer, "DUSTCAPINO") != nullptr)
+    if (strcmp(port, "AUTO") != 0)
     {
-        firmwareVersion = buffer;
+        if (tty_connect(port, baud, 8, 0, 1, &PortFD) != TTY_OK)
+        {
+            LOGF_ERROR("Failed to open configured port %s", port);
+            PortFD = -1;
+            return false;
+        }
+
+        int flags = TIOCM_DTR;
+        ioctl(PortFD, TIOCMBIC, &flags);
+        usleep(200000);
+        tcflush(PortFD, TCIOFLUSH);
+
+        int written = 0;
+        tty_write_string(PortFD, "CMD:HELLO\n", &written);
+
+        bool detected = false;
+        char buffer[128] = {0};
+        int nbytesRead = 0;
+
+        for (int attempt = 0; attempt < 5; attempt++)
+        {
+            memset(buffer, 0, sizeof(buffer));
+            if (tty_read_section_expanded(PortFD, buffer, '\n', 0, 500000, &nbytesRead) == TTY_OK && nbytesRead > 0)
+            {
+                buffer[strcspn(buffer, "\r\n")] = 0;
+                LOGF_INFO("Handshake RX on %s: %s", port, buffer);
+
+                if (strstr(buffer, "HELLO:DUSTCAPINO") != nullptr)
+                {
+                    firmwareVersion = buffer;
+                    detected = true;
+                    break;
+                }
+            }
+        }
+
+        if (!detected)
+        {
+            LOGF_ERROR("Configured port %s did not identify as DustCapIno", port);
+            tty_disconnect(PortFD);
+            PortFD = -1;
+            return false;
+        }
+
+        LOGF_INFO("Connected using configured port %s", port);
+        HandshakeTP[0].setText("Handshake OK");
+        HandshakeTP.setState(IPS_OK);
+        HandshakeTP.apply();
     }
-}
+    else if (!autoDetectPort())
+    {
+        LOG_ERROR("Auto detect failed");
+        return false;
+    }
 
-tty_write_string(PortFD, "CMD:LOG_DEBUG\n", &written);
+    if (firmwareVersion.rfind("HELLO:DUSTCAPINO", 0) == 0)
+        parseHello(firmwareVersion.c_str());
 
-capState = CapState::UNKNOWN;
+    capState = CapState::UNKNOWN;
+    lastStatusPacket = 0;
+    lastStatusRequest = time(nullptr);
 
-tty_write_string(PortFD, "CMD:STATUS\n", &written);
+    sendCommand("CMD:LOG_DEBUG\n");
+    sendCommand("CMD:STATUS\n");
+    SetTimer(200);
 
-SetTimer(200);
-
-return true;
+    return true;
 }
 
 bool DustCapIno::Disconnect()
@@ -433,7 +470,7 @@ bool DustCapIno::autoDetectPort()
             {
                 memset(buffer, 0, sizeof(buffer));
 
-                int rc = tty_read_section(fd, buffer, '\n', 0.3, &nbytes_read);
+                int rc = tty_read_section_expanded(fd, buffer, '\n', 0, 300000, &nbytes_read);
 
                 if (rc == TTY_OK && nbytes_read > 0)
                 {
@@ -498,6 +535,15 @@ bool DustCapIno::ISNewSwitch(const char *dev,
 {
     if (strcmp(dev, getDeviceName()) != 0)
         return false;
+
+    if (!strcmp(name, "BAUD_RATE"))
+    {
+        BaudRateSP.update(states, names, n);
+        BaudRateSP.setState(IPS_OK);
+        BaudRateSP.apply();
+        saveConfig(BaudRateSP);
+        return true;
+    }
 
     // --------------------------------------------------
     // CONFIG SAVE / LOAD
@@ -596,6 +642,27 @@ bool DustCapIno::ISNewSwitch(const char *dev,
     return INDI::DefaultDevice::ISNewSwitch(dev, name, states, names, n);
 }
 
+bool DustCapIno::ISNewText(const char *dev,
+                           const char *name,
+                           char *texts[],
+                           char *names[],
+                           int n)
+{
+    if (strcmp(dev, getDeviceName()) != 0)
+        return false;
+
+    if (!strcmp(name, "DEVICE_PORT"))
+    {
+        SerialPortTP.update(texts, names, n);
+        SerialPortTP.setState(IPS_OK);
+        SerialPortTP.apply();
+        saveConfig(SerialPortTP);
+        return true;
+    }
+
+    return INDI::DefaultDevice::ISNewText(dev, name, texts, names, n);
+}
+
 
 
 bool DustCapIno::ISNewNumber(const char *dev,
@@ -668,7 +735,7 @@ if (value > 0 && safetyOn && !isClosed)
     char cmd[32];
     EnableLightBox(value > 0);
 
-    snprintf(cmd, sizeof(cmd), "CMD:BRIGHTNESS,%d\n", value);
+    snprintf(cmd, sizeof(cmd), "CMD:BRIGHTNESS:%d\n", value);
     tty_write_string(PortFD, cmd, &written);
 
     return true;
@@ -734,7 +801,7 @@ void DustCapIno::sendCommand(const char *cmd)
 
 bool DustCapIno::readLine(char *buffer, int &nbytes)
 {
-    int rc = tty_read_section(PortFD, buffer, '\n', 0.1, &nbytes);
+    int rc = tty_read_section_expanded(PortFD, buffer, '\n', 0, 100000, &nbytes);
 
     if (rc == TTY_TIME_OUT || nbytes <= 0)
         return false;
@@ -894,33 +961,39 @@ void DustCapIno::parseStatus(const char *buffer)
          (capState == CapState::OPEN || capState == CapState::CLOSED));
 
     // ---- Update cap UI ----
-    switch (capState)
+    // Only publish CAP_PARK when the controller state changes. Re-applying the
+    // unchanged property on every STATUS poll makes clients such as KStars
+    // repeatedly announce "Dust Cap is unparked" while the cap is idle.
+    if (capState != previousState)
     {
-        case CapState::OPEN:
-            ParkCapSP.reset();
-            ParkCapSP[1].setState(ISS_ON);
-            ParkCapSP.setState(IPS_OK);
-            break;
+        switch (capState)
+        {
+            case CapState::OPEN:
+                ParkCapSP.reset();
+                ParkCapSP[1].setState(ISS_ON);
+                ParkCapSP.setState(IPS_OK);
+                break;
 
-        case CapState::CLOSED:
-            ParkCapSP.reset();
-            ParkCapSP[0].setState(ISS_ON);
-            ParkCapSP.setState(IPS_OK);
-            break;
+            case CapState::CLOSED:
+                ParkCapSP.reset();
+                ParkCapSP[0].setState(ISS_ON);
+                ParkCapSP.setState(IPS_OK);
+                break;
 
-        case CapState::MOVING:
-            ParkCapSP.setState(IPS_BUSY);
-            break;
+            case CapState::MOVING:
+                ParkCapSP.setState(IPS_BUSY);
+                break;
 
-        case CapState::ALERT:
-            ParkCapSP.setState(IPS_ALERT);
-            break;
+            case CapState::ALERT:
+                ParkCapSP.setState(IPS_ALERT);
+                break;
 
-        default:
-            break;
+            default:
+                break;
+        }
+
+        ParkCapSP.apply();
     }
-
-    ParkCapSP.apply();
 
     // ---- Light update ----
     if (brightness != LightIntensityNP[0].getValue())
@@ -1184,8 +1257,6 @@ void DustCapIno::TimerHit()
         if (movingCounter > 20)
         {
             LOG_WARN("Movement timeout, resending command");
-
-            int written = 0;
 
             if (lastMove == MOVE_CLOSE)
                 sendCommand("CMD:CLOSE\n");

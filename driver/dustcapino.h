@@ -17,6 +17,7 @@ public:
 
     bool initProperties() override;
     bool updateProperties() override;
+    bool saveConfigItems(FILE *fp) override;
 
     bool Connect() override;
     bool Disconnect() override;
@@ -38,6 +39,12 @@ public:
                      double *values,
                      char **names,
                      int n) override;
+
+    bool ISNewText(const char *dev,
+                   const char *name,
+                   char *texts[],
+                   char *names[],
+                   int n) override;
 
     void TimerHit() override;
 
